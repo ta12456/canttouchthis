@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col) {
-        
+        Destroy(this);
     }
     // Update is called once per frame
     void Update()
