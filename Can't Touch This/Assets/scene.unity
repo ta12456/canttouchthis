@@ -240,9 +240,9 @@ GameObject:
   - component: {fileID: 474709035}
   - component: {fileID: 474709038}
   - component: {fileID: 474709039}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 895480736}
   - component: {fileID: 895480735}
   - component: {fileID: 895480734}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: TestPlatform
   m_TagString: Platform
   m_Icon: {fileID: 0}
