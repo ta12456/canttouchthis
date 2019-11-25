@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        Debug.Log("Collide");
         if (col.gameObject.CompareTag("Death"))
         {
 

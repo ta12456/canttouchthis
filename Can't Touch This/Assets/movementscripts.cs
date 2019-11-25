@@ -18,7 +18,7 @@ public class movementscripts : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            am.SetTrigger("jump")
+            am.SetTrigger("jump");
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
