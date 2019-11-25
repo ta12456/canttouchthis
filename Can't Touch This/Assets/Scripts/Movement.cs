@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -13,9 +12,9 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        jumpHeight = 15;
+        jumpHeight = 25;
         horizSpd = 1;
-        maxHorizSpd = 6;
+        maxHorizSpd = 5;
 
         numJumps = 3;
 
@@ -40,30 +39,24 @@ public class Movement : MonoBehaviour
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Bound"))
+        else if (col.gameObject.CompareTag("Bound"))
         {
-            SceneManager.LoadScene("Death");
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            // reset jumps
+            numJumps = 0;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
         }
     }
 
     void adjustHorizSpeed(float xvel)
     {
-        float hspd = xvel;//GetComponent<Rigidbody2D>().velocity.x - horizSpd;
+        float hspd = 0;
+        hspd = GetComponent<Rigidbody2D>().velocity.x - horizSpd;
         if (hspd > maxHorizSpd)
         {
             hspd = maxHorizSpd;
         }
-        else if (hspd < -maxHorizSpd)
-        {
-            hspd = -maxHorizSpd;
-        }
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2(hspd, GetComponent<Rigidbody2D>().velocity.y);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(xvel, GetComponent<Rigidbody2D>().velocity.y);
     }
 
     // Update is called once per frame
@@ -73,17 +66,20 @@ public class Movement : MonoBehaviour
         //detectGround()
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (numJumps > 0)
+            if (numJumps >= 0)
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
-                numJumps--;
+                //numJumps--;
             }
+            
+            //jump = true;
         }
 
 
 
 
         // Adjust horizontal speed - acceleration but have a maximum value
+        float hspd = 0;
         if (Input.GetKey(KeyCode.A))
         {
             adjustHorizSpeed(GetComponent<Rigidbody2D>().velocity.x - horizSpd);
@@ -100,11 +96,11 @@ public class Movement : MonoBehaviour
         // Upward movement = decrease gravity, downward movement = increase gravity
         if (GetComponent<Rigidbody2D>().velocity.y > 0)
         {
-            GetComponent<Rigidbody2D>().gravityScale = 2;
+            GetComponent<Rigidbody2D>().gravityScale = 5;
         }
         else
         {
-            GetComponent<Rigidbody2D>().gravityScale = 5;
+            GetComponent<Rigidbody2D>().gravityScale = 10;
         }
         
     }

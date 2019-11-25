@@ -62,6 +62,8 @@ TagManager:
   - Bound
   - Platform
   - Death
+  - ProjBound
+  - ProjArea
   layers:
   - Default
   - TransparentFX
