@@ -15,6 +15,6 @@ public class GameManagementScript : MonoBehaviour
     }
     public void quitToMain()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
     }
 }

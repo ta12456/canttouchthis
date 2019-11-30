@@ -19,7 +19,9 @@ public class Projectile : MonoBehaviour
 
         if (col.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Death");
+            col.gameObject.SendMessage("onHit");
+            //SceneManager.LoadScene("Death");
+           
         }
     }
     // Update is called once per frame
