@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 [RequireComponent(typeof(Animator))]
 public class movementscripts : MonoBehaviour
 {
@@ -18,7 +20,20 @@ public class movementscripts : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            am.SetTrigger("jump")
+            am.SetTrigger("jump");
+
+            //Raycast
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f);
+            if (hit.collider != null)
+            {
+                //We can jump!
+                print("Jumping!");
+                GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);
+            }
+            else
+            {
+                print("Not jumping!");
+            }
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -26,13 +41,17 @@ public class movementscripts : MonoBehaviour
         }
             
         transform.position += new Vector3(
-            Input.GetAxis("Horizontal"),0, 0)
+           Input.GetAxis("Horizontal"),0, 0)
             * Time.deltaTime * 10;
         am.SetFloat("Speed",Input.GetAxis("Horizontal"));
+
         //if (Input.GetAxis("Horizontal") < 0)
         //    sr.flipX = true;
         //else if (Input.GetAxis("Horizontal") > 0)
         //    sr.flipX = false;
+
+        //Get y velocity
+        //GetComponent<Rigidbody2D>().velocity.y;
 
     }
 }
