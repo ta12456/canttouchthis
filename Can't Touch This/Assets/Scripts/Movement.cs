@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField]
+    Animator am;
+
     public float jumpHeight;
     public float horizSpd;
     public float maxHorizSpd;
@@ -13,6 +16,7 @@ public class Movement : MonoBehaviour
     public GameObject pauseScreen;
     public GameObject deathScreen;
     public Text scoreText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -98,6 +102,10 @@ public class Movement : MonoBehaviour
             }
             GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
         }
+        else if (col.gameObject.CompareTag("Death"))
+        {
+            onHit();
+        }
     }
 
     /*private void OnTriggerEnter2D(Collider2D col)
@@ -133,11 +141,15 @@ public class Movement : MonoBehaviour
         {
             if (numJumps > 0)
             {
+                am.SetTrigger("jump");
                 GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, jumpHeight);
                 numJumps--;
             }
         }
-
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            am.SetTrigger("Down");
+        }
 
 
 
@@ -152,7 +164,7 @@ public class Movement : MonoBehaviour
             adjustHorizSpeed(GetComponent<Rigidbody2D>().velocity.x + horizSpd);
         }
 
-
+        am.SetFloat("Speed", Input.GetAxis("Horizontal"));
 
 
         // Upward movement = decrease gravity, downward movement = increase gravity
@@ -164,6 +176,8 @@ public class Movement : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().gravityScale = 5;
         }
-        
+
+        if (transform.position.y < -6) onHit();
+
     }
 }
